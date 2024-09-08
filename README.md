@@ -22,6 +22,7 @@ This allows the mouse to be moved - [Mouse.h](https://downloads.arduino.cc/libra
 
 ## Attribution
 CustomSoftwareSerial Library Author - [@ledongthuc](https://github.com/ledongthuc)
+Datasheets Used for Development - [ICDIA.co.uk](http://www.icdia.co.uk/docs/pointing_devices.pdf)
 
 I couldn't have created this project without the massive amount of help i recieved from [Dan Williamson](https://uk.linkedin.com/in/daniel-williamson-engineer); He helped me map the pinout of the PCB and interpret the data coming in from it. 
 
