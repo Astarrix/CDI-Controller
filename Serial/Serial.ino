@@ -3,7 +3,8 @@
 #define RxPIN 4
 #define TxPIN 2  // not used but have to set so it doesnt throw errors
 #define EnablePIN 7
-#define PROCESSTIME 8
+#define UsesDeadSwitch false
+#define UsesSensitivityPot false
 
 //data bits
 bool button_1;
@@ -11,14 +12,14 @@ bool button_2;
 byte XMovement = 0;
 byte YMovement = 0;
 
-CustomSoftwareSerial RCSerial(RxPIN, TxPIN, true);
+CustomSoftwareSerial RCSerial(RxPIN, TxPIN, true); // using inverse logic
 
 void setup() {
-  Serial.begin(9600, SERIAL_8N1);
+  Serial.begin(9600);
   RCSerial.begin(1200, CSERIAL_7N2);  // set to 7 data bits, 0 Parity Bits, 2 stop bits and at 1200 baud
 
   pinMode(EnablePIN, OUTPUT);  // enables sending and recieving data, no reason really not to tie it to high
-  digitalWrite(EnablePIN, LOW);
+  digitalWrite(EnablePIN, LOW); // this just makes sure its on and enabled correctly
   delay(1);
   digitalWrite(EnablePIN, HIGH);
 }
@@ -41,25 +42,15 @@ void loop() {
   if (!hasPrinted) {
     Serial.print("Button 1: " + String(button_1) + "\n");
     Serial.print("Button 2: " + String(button_2) + "\n");
-    Serial.print("isUp: " + String(XMovement) + "\n");
-    Serial.print("isRight: " + String(YMovement) + "\n");
+    Serial.print("isUp: ------------------- " + String(YMovement) + "\n");
+    Serial.print("isRight: " + String(XMovement) + "\n");
     Serial.print("\n");
   }
 }
 
-/* DATA
+/* DATA FORMAT FROM RC
         64 32  16  8  4  2  1 
 Byte 0: 1  bt1 bt2 Y7 Y6 X7 X6
-Byte 1: 0  X5  X4  X3 X2 X1 X0 
+Byte 1: 0  X5  X4  X3 X2 X1 X0
 Byte 2: 0  Y5  Y4  Y3 Y2 Y1 Y0
-*/
-
-/*
-    // cin = 127 & buffer[0];
-    // if (64 & cin) {
-    //   if (32 & buffer[0]) {
-    //   }
-    //   if (16 & buffer[0]) {
-    //   }
-    // }
 */
